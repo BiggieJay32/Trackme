@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Trackme.NotificationController">
+   <children>
+      <TitledPane animated="false" layoutX="50.0" layoutY="71.0" prefHeight="100.0" prefWidth="500.0" text="Notification">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="498.0">
+               <children>
+                  <Label layoutX="148.0" layoutY="14.0" text="Have you updated your tracker today?&#10;" />
+                  <Button fx:id="yesButton" layoutX="219.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleYesButton" text="Yes">
+                     <padding>
+                        <Insets left="1.0" right="1.0" />
+                     </padding>
+                  </Button>
+                  <Button fx:id="noButton" layoutX="261.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleNoButton" text="No">
+                     <padding>
+                        <Insets left="1.0" right="1.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+   </children>
+   <effect>
+      <InnerShadow choke="0.5" height="50.0" radius="37.0" width="100.0" />
+   </effect>
+</AnchorPane>

@@ -1,0 +1,36 @@
+Jonathan Cook
+2
+Graph1
+Days
+0
+3
+Weight (lbs)
+160
+240
+3
+1800 calories
+1
+190
+2200 calories
+2
+190
+2000 calories
+3
+188
+Graph2
+3
+Episodes
+0
+3
+YMDB rating
+0
+10
+Ep 1: Good
+1
+7
+Ep 2: Better
+2
+8
+Ep 3: Best
+3
+9
