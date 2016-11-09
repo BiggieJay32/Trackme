@@ -21,7 +21,7 @@ public class Main extends Application
     {
         primaryStage.setTitle("Trackme Home");
         Parent[] root = {FXMLLoader.load(getClass().getResource("homepage.fxml")),
-            FXMLLoader.load(getClass().getResource("notification.fxml"))};
+                FXMLLoader.load(getClass().getResource("notification.fxml"))};
         Scene scene = new Scene(root[0]);
         primaryStage.setScene(scene);
         primaryStage.show();
