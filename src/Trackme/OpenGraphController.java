@@ -2,6 +2,7 @@ package Trackme;
 
 import Trackme.NewGraphController;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -27,16 +28,18 @@ public class OpenGraphController
 {
     TableView<Open> graphList;
     ObservableList<Open> openList = FXCollections.observableArrayList();
+    ObservableList<FIle> file = FXCollections.observableArrayList();
+    public static String fileN;
+    Stage window = new Stage();
+
 
     public void open(String title) {
-        Stage window = new Stage();
+
         graphList = new TableView<>();
         //Block events to other windows
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(250);
-
-        //Read text files from GraphInfo.txt
 
         //Tables and columns
         //Name columns
@@ -48,15 +51,12 @@ public class OpenGraphController
         graphList.getColumns().addAll(graphNameColumn);
         //System.out.println(graphList);
 
-        //Button graph = new Button("Graph1");
-
         //hbox
         HBox hBox = new HBox();
         hBox.setSpacing(10);
         Button open = new Button("Open");
         open.setOnAction(e -> select());
         hBox.getChildren().addAll(open);
-
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(graphList, hBox);
@@ -70,13 +70,26 @@ public class OpenGraphController
 
     public void select()
     {
-        String string;
-        ObservableList<Open> pointSelected, allPoints;
-        allPoints = graphList.getItems();
-        pointSelected = graphList.getSelectionModel().getSelectedItems();
-        //out.print(allPoints +" Hello");
-        //pointSelected.forEach(allPoints::remove);
-        System.out.println(pointSelected);
+        TablePosition pos = graphList.getSelectionModel().getSelectedCells().get(0);
+        int row = pos.getRow();
+        Open item = graphList.getItems().get(row);
+        TableColumn col = pos.getTableColumn();
+        String data = (String) col.getCellObservableValue(item).getValue();
+        System.out.println(data);
+        file.add(new FIle(data));
+        fileN = data;
+        window.close();
+        Platform.runLater(new Runnable() {
+            public void run() {
+                try {
+                    new PointMain().start(new Stage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        //return data;
+
     }
 
 

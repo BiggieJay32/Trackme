@@ -35,7 +35,8 @@ import static java.lang.System.out;
 
 public class PointMain extends Application {
 
-    String graphName;
+    OpenGraphController fileName = new OpenGraphController();
+    //fileName.select();
 
     Stage window;
     VBox vBox = new VBox();
@@ -44,6 +45,7 @@ public class PointMain extends Application {
     TextField nameInput, xInput, yInput, remarkInput;
     ObservableList<Point> points = FXCollections.observableArrayList();
     BorderPane layout;
+
 
     /**
      * @param args the command line arguments
@@ -59,6 +61,8 @@ public class PointMain extends Application {
         window = primaryStage;
         window.setTitle("Points Table");
 
+        //System.out.println(OpenGraphController.file);
+
         //Menu bar
         Menu fileMenu = new Menu("File");
 
@@ -71,14 +75,12 @@ public class PointMain extends Application {
         openFile.setOnAction(e -> {
             System.out.println("Choose a graph to open...");
             OpenGraphController G = new OpenGraphController();
+            primaryStage.close();
             G.open("Trackme");
         });
 
         fileMenu.getItems().add(newFile);
         fileMenu.getItems().add(openFile);
-
-
-
         fileMenu.getItems().add(new MenuItem("Save..."));
         fileMenu.getItems().add(new SeparatorMenuItem());
         fileMenu.getItems().add(new MenuItem("Settings..."));
@@ -214,7 +216,6 @@ public class PointMain extends Application {
         HomeController c = (HomeController) fxmlLoader.getController();
         c.quick.getItems().add(new MenuItem("TEST"));*/
         //HomeController.quick.getItems().add(new MenuItem("TEST"));
-
     }
 
     //Delete Button
@@ -223,8 +224,9 @@ public class PointMain extends Application {
         ObservableList<Point> pointSelected, allPoints;
         allPoints = table.getItems();
         pointSelected = table.getSelectionModel().getSelectedItems();
-        out.print(allPoints +" Hello");
+        System.out.print(fileName.fileN);
         pointSelected.forEach(allPoints::remove);
+
         /*
         try{
             FileReader fr = new FileReader("test1.txt");
@@ -242,7 +244,7 @@ public class PointMain extends Application {
         BufferedWriter bw = null;
         PrintWriter pw = null;
         try{
-            fw = new FileWriter("test1.txt", true);
+            fw = new FileWriter("[" + fileName.fileN + "].txt", true);
             bw = new BufferedWriter(fw);
             pw = new PrintWriter(bw);
             pw.print(name+"_");
@@ -263,8 +265,8 @@ public class PointMain extends Application {
         String name, remarks;
         Double xVal, yVal;
         try{
-            Scanner file = new Scanner(new File("test1.txt"));
-            FileReader fr = new FileReader("test1.txt");
+            Scanner file = new Scanner(new File("[" + fileName.fileN + "].txt"));
+            FileReader fr = new FileReader("[" + fileName.fileN + "].txt");
             BufferedReader br = new BufferedReader(fr);
             int count = 0;
             while (file.hasNextLine()) {
@@ -294,8 +296,8 @@ public class PointMain extends Application {
         ObservableList<XYChart.Data> points = FXCollections.observableArrayList();
         Double xValue, yValue;
         try{
-            Scanner file = new Scanner(new File("test1.txt"));
-            FileReader fr = new FileReader("test1.txt");
+            Scanner file = new Scanner(new File("[" + fileName.fileN + "].txt"));
+            FileReader fr = new FileReader("[" + fileName.fileN + "].txt");
             BufferedReader br = new BufferedReader(fr);
             int count = 0;
             while(file.hasNextLine()){
