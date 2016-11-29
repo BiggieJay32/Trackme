@@ -24,7 +24,6 @@ public class HomeController implements Initializable
     public Button SettingsButton;
     public MenuButton quick;
 
-
     /*public void handleGraphButton(ActionEvent event) throws Exception {
         try {
 
@@ -34,7 +33,12 @@ public class HomeController implements Initializable
     }*/
 
     public void handleGraphButton(ActionEvent event) throws Exception {
-        Platform.runLater(new Runnable() {
+        Parent root = FXMLLoader.load(getClass().getResource("track.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Track Me");
+        stage.setScene(new Scene(root, 600, 675));
+        stage.show();
+        /*Platform.runLater(new Runnable() {
             public void run() {
                 try {
                     new PointMain().start(new Stage());
@@ -42,7 +46,7 @@ public class HomeController implements Initializable
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
     }
 
     public void handleSetButton(ActionEvent event) throws Exception {

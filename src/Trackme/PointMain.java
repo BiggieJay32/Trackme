@@ -36,6 +36,7 @@ import static java.lang.System.out;
 public class PointMain extends Application {
 
     OpenGraphController fileName = new OpenGraphController();
+    String xVal, yVal, title, deleteData;
     //fileName.select();
 
     Stage window;
@@ -60,7 +61,7 @@ public class PointMain extends Application {
     {
         window = primaryStage;
         window.setTitle("Points Table");
-
+        //getGraphNames();
         //System.out.println(OpenGraphController.file);
 
         //Menu bar
@@ -71,7 +72,7 @@ public class PointMain extends Application {
             System.out.println("Create a new file...");
             NewGraphController.display("Trackme", "Create a new graph");
         });
-        MenuItem openFile = new MenuItem("Open...");
+        MenuItem openFile = new MenuItem("Graphs...");
         openFile.setOnAction(e -> {
             System.out.println("Choose a graph to open...");
             OpenGraphController G = new OpenGraphController();
@@ -137,16 +138,17 @@ public class PointMain extends Application {
             @Override
             public void handle(ActionEvent event) {
                     //Graph Visual
+                    getGraphNames();
                     HBox hBox2 = new HBox();
                     hBox2.setSpacing(10);
                     hBox2.setPadding(new Insets(10, 10, 10, 10));
                     final NumberAxis xAxis = new NumberAxis();
                     final NumberAxis yAxis = new NumberAxis();
-                    xAxis.setLabel("Point X");
-                    yAxis.setLabel("Point Y");
+                    xAxis.setLabel(xVal);
+                    yAxis.setLabel(yVal);
                     LineChart<Number, Number> lineChart = new LineChart<>(xAxis,yAxis);
 
-                    //lineChart.setTitle("Points");
+                    lineChart.setTitle(title);
                     XYChart.Series series = new XYChart.Series(getXnY());
                     series.setName("First Data");
                     lineChart.getData().add(series);
@@ -221,12 +223,52 @@ public class PointMain extends Application {
     //Delete Button
     public void deleteButtonClicked()
     {
+
         ObservableList<Point> pointSelected, allPoints;
         allPoints = table.getItems();
         pointSelected = table.getSelectionModel().getSelectedItems();
         System.out.print(fileName.fileN);
         pointSelected.forEach(allPoints::remove);
+/*
+        TablePosition pos = table.getSelectionModel().getSelectedCells().get(0);
+        int row = pos.getRow();
+        Point item = table.getItems().get(row);
+        TableColumn col = pos.getTableColumn();
+        String data = (String) col.getCellObservableValue(item).getValue();
+        System.out.println(data);
+        deleteData = data;
+        System.out.println(deleteData);
+        //ObservableList<XYChart.Data> names = FXCollections.observableArrayList();
+        //String xVal, yVal, title;
+        */
+       /* try{
+            Scanner file = new Scanner(new File("[" + fileName.fileN + "].txt"));
+            FileReader fr = new FileReader("[" + fileName.fileN + "].txt");
+            BufferedReader br = new BufferedReader(fr);
+            int count = 0;
+            while(file.hasNextLine()){
+                count++;
+                file.nextLine();
+            }
+            while(count > 0)
+            {
+                String str= br.readLine();
+                String parts[] = str.split("_");
 
+                //title = parts[0];
+                //xVal = parts[1];
+                //yVal = parts[2];
+                System.out.println(title + xVal + yVal);
+                //points.add(new XYChart.Data(xValue, yValue));
+                if(title == fileName.fileN)
+                    break;
+                count = count -1;
+            }
+            fr.close();
+        }catch(IOException e)
+        {
+            out.println("File Not Found");
+        }*/
         /*
         try{
             FileReader fr = new FileReader("test1.txt");
@@ -320,5 +362,40 @@ public class PointMain extends Application {
         }
         return points;
     }//end of XnY
+
+    public void getGraphNames(){
+        //ObservableList<XYChart.Data> names = FXCollections.observableArrayList();
+        //String xVal, yVal, title;
+        try{
+            Scanner file = new Scanner(new File("GraphInfo.txt"));
+            FileReader fr = new FileReader("GraphInfo.txt");
+            BufferedReader br = new BufferedReader(fr);
+            int count = 0;
+            while(file.hasNextLine()){
+                count++;
+                file.nextLine();
+            }
+            while(count > 0)
+            {
+                String str= br.readLine();
+                String parts[] = str.split("_");
+                title = parts[0];
+                xVal = parts[1];
+                yVal = parts[2];
+                System.out.println(title + xVal + yVal);
+                //points.add(new XYChart.Data(xValue, yValue));
+                if(title == fileName.fileN)
+                    break;
+                count = count -1;
+            }
+            fr.close();
+        }catch(IOException e)
+        {
+            out.println("File Not Found");
+        }
+        //return points;
+    }//end of XnY
+
+
 
 }

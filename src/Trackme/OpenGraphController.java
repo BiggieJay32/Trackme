@@ -30,6 +30,7 @@ public class OpenGraphController
     ObservableList<Open> openList = FXCollections.observableArrayList();
     ObservableList<FIle> file = FXCollections.observableArrayList();
     public static String fileN;
+    public String delFileName, delName, delX, delY;
     Stage window = new Stage();
 
 
@@ -56,7 +57,9 @@ public class OpenGraphController
         hBox.setSpacing(10);
         Button open = new Button("Open");
         open.setOnAction(e -> select());
-        hBox.getChildren().addAll(open);
+        Button delete = new Button("Delete");
+        delete.setOnAction(e -> deleteGraph());
+        hBox.getChildren().addAll(open, delete);
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(graphList, hBox);
@@ -67,6 +70,81 @@ public class OpenGraphController
         window.setScene(scene);
         window.showAndWait();
     }
+    public void deleteGraph()
+    {
+
+        System.out.println("inside delete");
+        TablePosition pos = graphList.getSelectionModel().getSelectedCells().get(0);
+        int row = pos.getRow();
+        Open item = graphList.getItems().get(row);
+        TableColumn col = pos.getTableColumn();
+        String data2 = (String) col.getCellObservableValue(item).getValue();
+        System.out.println(data2);
+        //file.add(new FIle(data));
+        delFileName = data2;
+
+
+        ObservableList<Open> pointSelected, allPoints;
+        allPoints = graphList.getItems();
+        pointSelected = graphList.getSelectionModel().getSelectedItems();
+        pointSelected.forEach(allPoints::remove);
+
+
+        File inputFile = new File("GraphInfo.txt");
+        File outputFile = new File("GraphInfo2.txt");
+
+        //reader
+        try {
+            Scanner file = new Scanner(inputFile);
+            FileReader fr = new FileReader(inputFile);
+            BufferedReader br = new BufferedReader(fr);
+            BufferedWriter wr = new BufferedWriter(new FileWriter(outputFile));
+            int count = 0;
+            while (file.hasNextLine()) {
+                count++;
+                file.nextLine();
+            }
+            while (count > 0) {
+                String str = br.readLine();
+                String parts[] = str.split("_");
+                delName = parts[0];
+                delX = parts[1];
+                delY = parts[2];
+                if(data2 == delName)
+                {
+                    continue;
+                    /*System.out.println(delName);
+                    String target = delName + "_" + delX + "_" + delY + "_";
+                    String trimm;
+                    while((trimm = br.readLine()) != null)
+                    {
+
+                        String trimmer = trimm.trim();
+                        if(trimmer.equals(target)) continue;
+                        wr.write(trimm + System.getProperty("line.separator"));
+                    }
+                    wr.close();
+                    br.close();
+                    boolean success = outputFile.renameTo(inputFile);
+                    break;*/
+                }
+                wr.write(str + System.getProperty("line.separator"));
+
+                //openList.add(new Open(delName));
+                count = count - 1;
+            }
+            wr.close();
+            br.close();
+            boolean success = outputFile.renameTo(inputFile);
+            fr.close();
+        } catch (IOException e) {
+            out.println("File Not Found");
+        }
+
+        //String target = delName + "_" + delX + "_" + delY + "_";
+        //target.trim();
+
+    }
 
     public void select()
     {
@@ -76,7 +154,7 @@ public class OpenGraphController
         TableColumn col = pos.getTableColumn();
         String data = (String) col.getCellObservableValue(item).getValue();
         System.out.println(data);
-        file.add(new FIle(data));
+        //file.add(new FIle(data));
         fileN = data;
         window.close();
         Platform.runLater(new Runnable() {
