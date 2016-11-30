@@ -13,8 +13,6 @@ public class PointToTable {
 
     private String gName;
 
-
-
     public PointToTable(String g){
         Connection c;
         gName = g;

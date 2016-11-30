@@ -22,7 +22,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
 public class trackController implements Initializable{
     public TextField xIt, yIt,descIt;
     public LineChart<Number, Number> lineChart;
@@ -34,11 +33,9 @@ public class trackController implements Initializable{
     public ObservableList<Points> obs = FXCollections.observableArrayList();
     public PointToTable pt;
 
-
     public void btn1(ActionEvent e){
         pt.insertPoint(Integer.parseInt(xIt.getText()),Integer.parseInt(yIt.getText()),descIt.getText());
         makeIt();
-
 
     }
     public void btn2(ActionEvent e){
@@ -46,14 +43,14 @@ public class trackController implements Initializable{
         makeIt();
     }
 
-
     public void openGraphs(ActionEvent e){
         currentName = GraphTable.display(PointToTable.pullFromGraphs());
         pt = new PointToTable(currentName);
         makeIt();
     }
 
-    public void makeIt(){
+    public void makeIt()
+    {
         lineChart.getData().clear();
         series = pt.dumpContent();
         lineChart.getData().addAll(series);
@@ -68,31 +65,25 @@ public class trackController implements Initializable{
                 Tooltip.install(data.getNode(),new Tooltip(pt.getPointDescript( (int) data.getXValue() ) ) );
             });
             data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->{
-            /*    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("More Info");
                 alert.setHeaderText(null);
                 alert.setContentText(pt.getPointDescript( (int) data.getXValue() ));
                 alert.showAndWait();
-            */
-                ObservableList<String> obs =  FXCollections.observableArrayList();
-                obs.add("I guess it works!");
-                GraphTable.display(obs);
             });
         }
-
-
-
-    }
-
+    }//End makeIt
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-       PointToTable.createGraph("A");
-       PointToTable.createGraph("B");
-       PointToTable.createGraph("C");
-       currentName = GraphTable.display(PointToTable.pullFromGraphs());
-       pt = new PointToTable(currentName);
-       makeIt();
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        PointToTable.graphBranch();
+        PointToTable.createGraph("A");
+        PointToTable.createGraph("B");
+        PointToTable.createGraph("C");
+        currentName = GraphTable.display(PointToTable.pullFromGraphs());
+        pt = new PointToTable(currentName);
+        makeIt();
     }
 
 
