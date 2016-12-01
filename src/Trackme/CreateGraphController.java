@@ -22,9 +22,7 @@ public class CreateGraphController implements Initializable
 
     @FXML public void submit()
     {
-        /*
         PointToTable.createGraph(graphTitle.getText(), xTitle.getText(), yTitle.getText(), Integer.parseInt(goalValue.getText()));
-         */
         Stage stage = (Stage) submitButton.getScene().getWindow();
         stage.close();
     }
