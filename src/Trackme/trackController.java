@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,8 +23,6 @@ public class trackController implements Initializable
 {
     @FXML private ProgressBar progressBar;
     @FXML private ProgressIndicator progressIndicator;
-    @FXML private MenuItem newGraph;
-    //final float value = 10.0f;
 
     public TextField xIt, yIt,descIt;
     public LineChart<Number, Number> lineChart;
@@ -31,7 +30,8 @@ public class trackController implements Initializable
     public TableColumn<Points,String> xCol,yCol,descCol;
     public Label lbl1;
     public XYChart.Series<Number, Number> series;
-    public String currentName;
+    public String currentName, currentX, currentY;
+    public NumberAxis xAxis, yAxis;
     public ObservableList<Points> obs = FXCollections.observableArrayList();
     public PointToTable pt;
 
@@ -75,6 +75,11 @@ public class trackController implements Initializable
     public void makeIt()
     {
         lineChart.getData().clear();
+        lineChart.setTitle(currentName);
+        currentX = pt.getXName();
+        currentY = pt.getYName();
+        xAxis.setLabel(currentX);
+        yAxis.setLabel(currentY);
         series = pt.dumpContent();
         lineChart.getData().addAll(series);
         obs = pt.tableIt();
@@ -108,9 +113,6 @@ public class trackController implements Initializable
     public void initialize(URL location, ResourceBundle resources)
     {
         PointToTable.graphBranch();
-        PointToTable.createGraph("A");
-        PointToTable.createGraph("B");
-        PointToTable.createGraph("C");
         currentName = GraphTable.display(PointToTable.pullFromGraphs());
         pt = new PointToTable(currentName);
 

@@ -49,10 +49,10 @@
          <center>
             <LineChart fx:id="lineChart" prefHeight="414.0" prefWidth="481.0" BorderPane.alignment="CENTER">
                <xAxis>
-                  <NumberAxis side="BOTTOM" />
+                  <NumberAxis fx:id = "xAxis" side="BOTTOM" />
                </xAxis>
                <yAxis>
-                  <NumberAxis prefHeight="402.0" prefWidth="0.0" side="LEFT" />
+                  <NumberAxis fx:id = "yAxis" prefHeight= "402.0" prefWidth="0.0" side="LEFT" />
                </yAxis>
             </LineChart>
          </center>
