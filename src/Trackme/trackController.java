@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -32,6 +33,7 @@ public class trackController implements Initializable
     public TableColumn<Points,String> xCol,yCol,descCol;
     public Label lbl1;
     public XYChart.Series<Number, Number> series;
+
     public String currentName, currentX, currentY;
     public NumberAxis xAxis, yAxis;
     public ObservableList<Points> obs = FXCollections.observableArrayList();
@@ -87,6 +89,7 @@ public class trackController implements Initializable
         xAxis.setLabel(currentX);
         yAxis.setLabel(currentY);
         series = pt.dumpContent();
+        series.setName("Tracking");
         lineChart.getData().addAll(series);
         obs = pt.tableIt();
         xCol.setCellValueFactory(new PropertyValueFactory<>("x"));
@@ -126,7 +129,7 @@ public class trackController implements Initializable
                 Media sound = new Media(getClass().getResource("purpleCut.mp3").toString());
                 MediaPlayer mediaPlayer = new MediaPlayer(sound);
                 mediaPlayer.play();
-
+                stage.setOnCloseRequest(e-> mediaPlayer.stop());
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -140,6 +143,5 @@ public class trackController implements Initializable
         currentName = GraphTable.display(PointToTable.pullFromGraphs());
         pt = new PointToTable(currentName);
         makeIt();
-
     }
 }//End trackController

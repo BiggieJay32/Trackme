@@ -59,6 +59,19 @@ public class PointToTable {
 
     }
 
+    public static void timerTable() {
+        String dec1 = "CREATE TABLE IF NOT EXISTS TIMES ("
+                + "	id INTEGER PRIMARY KEY, "
+                + " time TEXT UNIQUE NOT NULL, graphName TEXT NOT NULL UNIQUE);";
+        try {
+            Connection c = connect();
+            c.createStatement().execute(dec1);
+            c.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     public static boolean createGraph(String gName, String xName, String yName, int goal) {
         boolean b = true;
@@ -70,7 +83,7 @@ public class PointToTable {
                 p.setString(1, gName);
                 p.setString(2, xName);
                 p.setString(3, yName);
-                p.setInt( 4,  goal);
+                p.setInt(4, goal);
                 p.executeUpdate();
             }
             c.close();
@@ -285,12 +298,52 @@ public class PointToTable {
         try {
             Connection c = connect();
             resultSet = c.createStatement().executeQuery(sql);
-             i = resultSet.getInt(1);
+            i = resultSet.getInt(1);
             c.close();
 
-            } catch(SQLException e){
-                System.out.println(e.getMessage());
-            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return i;
+    }
+
+    public void getTimer(String time) {
+        String sql = "INSERT INTO  TIMES (time, graphName) " + "VALUES (?,?)";
+        try{
+            Connection c = connect();
+            PreparedStatement p = c.prepareStatement(sql);{
+                p.setString(1,time);
+                p.setString(2, gName);
+                p.executeUpdate();
+            }
+            c.close();
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
         }
     }
+    public static boolean b = false;
+
+    public static boolean timeOff(String time){
+        ArrayList<String> strings = new ArrayList<>();
+        String sql = "SELECT time FROM  Times";
+
+        ResultSet resultSet;
+
+        try {
+            Connection c = connect();
+            resultSet = c.createStatement().executeQuery(sql);
+            while(resultSet.next())
+                strings.add(resultSet.getString(1));
+            c.close();
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+      return b;
+    }
+
+
+}
