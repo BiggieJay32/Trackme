@@ -3,26 +3,28 @@ package Trackme;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
-
-import java.awt.*;
-import java.awt.event.MouseMotionListener;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class trackController implements Initializable{
+public class trackController implements Initializable
+{
+    @FXML private ProgressBar progressBar;
+    @FXML private ProgressIndicator progressIndicator;
+    @FXML private MenuItem newGraph;
+    //final float value = 10.0f;
+
     public TextField xIt, yIt,descIt;
     public LineChart<Number, Number> lineChart;
     public TableView<Points> tableTime;
@@ -33,20 +35,41 @@ public class trackController implements Initializable{
     public ObservableList<Points> obs = FXCollections.observableArrayList();
     public PointToTable pt;
 
-    public void btn1(ActionEvent e){
+    public void btn1(ActionEvent e)
+    {
         pt.insertPoint(Integer.parseInt(xIt.getText()),Integer.parseInt(yIt.getText()),descIt.getText());
         makeIt();
-
+        xIt.clear();
+        yIt.clear();
+        descIt.clear();
     }
-    public void btn2(ActionEvent e){
+
+    public void btn2(ActionEvent e)
+    {
         pt.deletePoint(tableTime.getSelectionModel().getSelectedItem().getX());
         makeIt();
     }
 
-    public void openGraphs(ActionEvent e){
+    public void openGraphs(ActionEvent e)
+    {
         currentName = GraphTable.display(PointToTable.pullFromGraphs());
         pt = new PointToTable(currentName);
         makeIt();
+    }
+
+    @FXML
+    private void openNewGraph(ActionEvent event) throws Exception
+    {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("createGraph.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Graph Window");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void makeIt()
@@ -74,6 +97,13 @@ public class trackController implements Initializable{
         }
     }//End makeIt
 
+    public void progressCheck(int goal, int current)
+    {
+        float totalVal = ((float) current)/((float) goal);
+        progressBar.setProgress(totalVal);
+        progressIndicator.setProgress(totalVal);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -83,8 +113,10 @@ public class trackController implements Initializable{
         PointToTable.createGraph("C");
         currentName = GraphTable.display(PointToTable.pullFromGraphs());
         pt = new PointToTable(currentName);
+
+        progressCheck(7, 3);
+
         makeIt();
+
     }
-
-
-}
+}//End trackController

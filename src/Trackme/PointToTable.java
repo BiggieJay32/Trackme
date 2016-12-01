@@ -26,6 +26,7 @@ public class PointToTable {
                     " PointDesc TEXT);";
 
             c.createStatement().execute(dec);
+            c.close();
         }
 
         catch(SQLException e){
@@ -34,9 +35,6 @@ public class PointToTable {
 
         System.out.println("Successfully activated.");
     }
-
-
-
 
     private static Connection connect() {
         Connection c = null;
@@ -49,8 +47,6 @@ public class PointToTable {
         return c;
     }
 
-
-
     public static void graphBranch(){
         String dec1 = "CREATE TABLE IF NOT EXISTS GRAPHS ("
                 + "	id INTEGER PRIMARY KEY, "
@@ -58,14 +54,13 @@ public class PointToTable {
         try{
             Connection c = connect();
             c.createStatement().execute(dec1);
+            c.close();
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
 
     }
-
-
 
     public static boolean createGraph(String s){
         boolean b = true;
@@ -76,6 +71,7 @@ public class PointToTable {
                 p.setString(1,s);
                 p.executeUpdate();
             }
+            c.close();
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
@@ -83,8 +79,6 @@ public class PointToTable {
         }
         return b;
     }
-
-
 
     public XYChart.Series<Number, Number>  dumpContent(){
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
@@ -104,7 +98,6 @@ public class PointToTable {
         return series;
     }
 
-
     public void insertPoint(int Xpoint, int Ypoint, String pointDesc){
         String sql = "INSERT INTO " + gName + " (Xpoint, Ypoint, pointDesc) "  + "VALUES (?,?,?)";
         try{
@@ -115,12 +108,12 @@ public class PointToTable {
                 p.setString(3,pointDesc);
                 p.executeUpdate();
             }
+            c.close();
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
     }
-
 
     public static void deleteAll(String g){
         String sql = "DELETE from GRAPHS where GraphName = ? ;";
@@ -132,14 +125,13 @@ public class PointToTable {
                 p.executeUpdate();
             }
             c.createStatement().execute(sql2);
+            c.close();
         }
 
         catch(SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-
-
 
     public void deletePoint(int x){
         String sql = "DELETE from "+ gName +" where Xpoint = ? ;";
@@ -150,24 +142,25 @@ public class PointToTable {
                 p.executeUpdate();
             }
             c.commit();
+            c.close();
         }
         catch(SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-
-
-
     public  ObservableList<Points> tableIt(){
         ArrayList<Points> pointses = new ArrayList<>();
 
         try{
-            ResultSet rs = connect().createStatement().executeQuery("SELECT Xpoint, Ypoint, pointDesc FROM "+ gName);
+            Connection c = connect();
+            ResultSet rs = c.createStatement().executeQuery("SELECT Xpoint, Ypoint, pointDesc FROM "+ gName);
+            //c.close();
 
             while(rs.next()){
                 pointses.add(new Points(rs.getInt(1),rs.getInt(2),rs.getString(3)));
             }
+            c.close();
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
@@ -175,9 +168,6 @@ public class PointToTable {
         System.out.println("Successful");
         return  FXCollections.observableArrayList(pointses);
     }
-
-
-
 
     public static ObservableList<String> pullFromGraphs(){
         ArrayList<String> stringa = new ArrayList<>();
@@ -211,7 +201,7 @@ public class PointToTable {
                resultSet =  p.executeQuery();
                s = resultSet.getString(1);
             };
-
+            c.close();
         }
         catch(SQLException e) {
             System.out.println(e.getMessage());
