@@ -119,6 +119,5 @@ public class trackController implements Initializable
         progressCheck(7, 3);
 
         makeIt();
-
     }
 }//End trackController

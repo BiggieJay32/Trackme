@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Trackme.CreateGraphController">
+   <children>
+      <Label layoutX="94.0" layoutY="18.0" text="Graph Title: " />
+      <Label layoutX="94.0" layoutY="44.0" text="X-axis Title: " />
+      <Label layoutX="95.0" layoutY="71.0" text="Y-axis Title: " />
+      <TextField fx:id="graphTitle" layoutX="158.0" layoutY="14.0" promptText="Graph Title" />
+      <TextField layoutX="158.0" layoutY="40.0" promptText="x-axis" fx:id="xTitle" />
+      <TextField fx:id="yTitle" layoutX="158.0" layoutY="67.0" promptText="y-axis" />
+      <Label layoutX="165.0" layoutY="100.0" text="Create a goal" />
+      <TextField fx:id="goalValue" layoutX="126.0" layoutY="117.0" promptText="y value" />
+      <Button fx:id="submitButton" layoutX="174.0" layoutY="152.0" mnemonicParsing="false" onAction="#submit" text="Submit" />
+   </children>
+</AnchorPane>
