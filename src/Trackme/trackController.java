@@ -14,6 +14,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -34,6 +36,7 @@ public class trackController implements Initializable
     public NumberAxis xAxis, yAxis;
     public ObservableList<Points> obs = FXCollections.observableArrayList();
     public PointToTable pt;
+    public int goal, current;
 
     public void btn1(ActionEvent e)
     {
@@ -78,6 +81,9 @@ public class trackController implements Initializable
         lineChart.setTitle(currentName);
         currentX = pt.getXName();
         currentY = pt.getYName();
+        goal = pt.getGoal();
+        current = pt.getCurrent();
+        progressCheck(goal, current);
         xAxis.setLabel(currentX);
         yAxis.setLabel(currentY);
         series = pt.dumpContent();
@@ -107,6 +113,24 @@ public class trackController implements Initializable
         float totalVal = ((float) current)/((float) goal);
         progressBar.setProgress(totalVal);
         progressIndicator.setProgress(totalVal);
+
+        if(totalVal >= 1)
+        {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("congrats.fxml"));
+                Parent root1 = (Parent) fxmlLoader.load();
+                Stage stage = new Stage();
+                //stage.setTitle("G");
+                stage.setScene(new Scene(root1));
+                stage.show();
+                Media sound = new Media(getClass().getResource("purpleCut.mp3").toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                mediaPlayer.play();
+
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -115,9 +139,7 @@ public class trackController implements Initializable
         PointToTable.graphBranch();
         currentName = GraphTable.display(PointToTable.pullFromGraphs());
         pt = new PointToTable(currentName);
-
-        progressCheck(7, 3);
-
         makeIt();
+
     }
 }//End trackController
