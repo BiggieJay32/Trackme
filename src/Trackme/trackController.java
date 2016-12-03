@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -14,8 +15,10 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -41,7 +44,7 @@ public class trackController implements Initializable
     private ObservableList<Point> obs = FXCollections.observableArrayList();
     private PointToTable pt;
     private int goal, current;
-
+    private static String ans = "default";
     public void btn1(ActionEvent e)
     {
         pt.insertPoint(Integer.parseInt(xIt.getText()),Integer.parseInt(yIt.getText()),descIt.getText());
@@ -59,7 +62,7 @@ public class trackController implements Initializable
 
     public void openGraphs(ActionEvent e)
     {
-        currentName = GraphTable.display(PointToTable.pullFromGraphs());
+        currentName = graphOptions(PointToTable.pullFromGraphs());
         pt = new PointToTable(currentName);
         makeIt();
     }
@@ -142,9 +145,47 @@ public class trackController implements Initializable
     public void initialize(URL location, ResourceBundle resources)
     {
         PointToTable.graphBranch();
-        currentName = GraphTable.display(PointToTable.pullFromGraphs());
+        currentName = graphOptions(PointToTable.pullFromGraphs());
         pt = new PointToTable(currentName);
         makeIt();
 
     }
+
+
+    public static String graphOptions(ObservableList<String> obs){
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Choose Graph");
+        stage.setMinWidth(400);
+
+        ListView<String> listView = new ListView<>();
+        listView.setItems(obs);
+
+        Button open = new Button("open"), delete = new Button("delete");
+        open.setOnAction(e->{
+            ans = listView.getSelectionModel().getSelectedItem();
+            stage.close();
+        });
+
+        delete.setOnAction(e->{
+            PointToTable.deleteAll(listView.getSelectionModel().getSelectedItem());
+            listView.getItems().remove(listView.getSelectionModel().getSelectedItem());
+        });
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(listView,open,delete);
+        layout.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(layout);
+        stage.setScene(scene);
+        stage.showAndWait();
+        return ans;
+
+    }
+
+
+
+
+
+
 }//End trackController
