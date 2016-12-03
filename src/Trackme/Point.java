@@ -1,57 +1,41 @@
 package Trackme;
 
-/**
- * Created by Clark on 10/17/2016.
- */
+
+/* This class provides an easy way for us to manage points within our graphs*/
+
+
 public class Point {
-    private String pointName;
-    private double x;
-    private double y;
-    private String Remarks;
+    private int x, y;
+    private String desc;
 
-    public Point()
-    {
-        this.pointName = "";
-        this.x = 0;
-        this.y = 0;
+    Point(int x, int y, String d){
+        this.x = x;
+        this.y = y;
+        this.desc = d;
     }
 
-    public Point(String name, double xValue, double yValue, String Remarks) {
-        this.pointName = name;
-        this.x = xValue;
-        this.y = yValue;
-        this.Remarks = Remarks;
-    }
 
-    public String getPointName() {
-        return pointName;
-    }
-
-    public void setPointName(String pointName) {
-        this.pointName = pointName;
-    }
-
-    public double getX() {
+    public int getX() {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public double getY() {
+    public int getY() {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(int y) {
         this.y = y;
     }
 
-    public String getRemarks() {
-        return Remarks;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setRemarks(String remarks) {
-        Remarks = remarks;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }

@@ -17,11 +17,7 @@
          <effect>
             <DropShadow />
          </effect></Button>
-        <Button fx:id="notesButton" layoutX="308.0" layoutY="196.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Notes" textAlignment="CENTER">
-         <effect>
-            <DropShadow />
-         </effect></Button>
-        <Button fx:id="notificationButton" layoutX="308.0" layoutY="234.0" mnemonicParsing="false" onAction="#handleNoteButton" prefHeight="25.0" prefWidth="85.0" text="Notifications">
+        <Button fx:id="notificationButton" layoutX="308.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleNoteButton" prefHeight="25.0" prefWidth="85.0" text="Notifications">
          <effect>
             <DropShadow />
          </effect></Button>
@@ -30,11 +26,6 @@
             <Image url="@trackmeLogo.png" />
          </image>
         </ImageView>
-      <Button fx:id="progressButton" layoutX="308.0" layoutY="272.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Progress">
-         <effect>
-            <DropShadow />
-         </effect>
-      </Button>
     </children>
    <effect>
       <InnerShadow choke="0.5" height="40.0" radius="19.5" width="40.0" />

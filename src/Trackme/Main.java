@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/*Main class that is used to run the entire program. The program starts by loading the homepage.fxml scene*/
+
 public class Main extends Application
 {
     @Override

@@ -11,10 +11,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
+/*This class controls the scene responsible for creating a new graph within our program*/
 
-/**
- * Created by Jorda on 11/30/2016.
- */
 public class CreateGraphController implements Initializable
 {
     @FXML private javafx.scene.control.TextField graphTitle, xTitle, yTitle, goalValue;

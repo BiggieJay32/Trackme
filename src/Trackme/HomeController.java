@@ -13,6 +13,9 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/*This class controls the homepage scene of our project*/
+
+
 public class HomeController implements Initializable
 {
     @FXML private Button trackButton, notesButton, notificationButton, progressButton;

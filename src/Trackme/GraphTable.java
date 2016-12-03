@@ -14,9 +14,8 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * Created by Bob on 11/26/2016.
- */
+
+/*This class is responsible for showing the table of graphs to choose from as well as the ability to delete a graph*/
 
 
 public class GraphTable {

@@ -21,6 +21,10 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
+/*This class provides the scenes for which the graphs are actually displayed and can be manipulated.*/
+
+
 public class trackController implements Initializable
 {
     @FXML private ProgressBar progressBar;
@@ -28,13 +32,13 @@ public class trackController implements Initializable
 
     public TextField xIt, yIt,descIt;
     public LineChart<Number, Number> lineChart;
-    public TableView<Points> tableTime;
-    public TableColumn<Points,String> xCol,yCol,descCol;
+    public TableView<Point> tableTime;
+    public TableColumn<Point,String> xCol,yCol,descCol;
     public Label lbl1;
     public XYChart.Series<Number, Number> series;
     public String currentName, currentX, currentY;
     public NumberAxis xAxis, yAxis;
-    public ObservableList<Points> obs = FXCollections.observableArrayList();
+    public ObservableList<Point> obs = FXCollections.observableArrayList();
     public PointToTable pt;
     public int goal, current;
 

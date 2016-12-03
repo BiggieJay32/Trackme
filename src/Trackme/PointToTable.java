@@ -6,9 +6,8 @@ import javafx.scene.chart.XYChart;
 import java.sql.*;
 import java.util.ArrayList;
 
-/**
- * Created by Bob on 11/13/2016.
- */
+/*This class provides the necessary communication between our program and the SQLite Database*/
+
 public class PointToTable {
 
     private String gName;
@@ -156,15 +155,15 @@ public class PointToTable {
     }
 
 
-    public ObservableList<Points> tableIt() {
-        ArrayList<Points> pointses = new ArrayList<>();
+    public ObservableList<Point> tableIt() {
+        ArrayList<Point> pointses = new ArrayList<>();
         try {
             Connection c = connect();
             ResultSet rs = (c.createStatement().executeQuery("SELECT Xpoint, Ypoint, pointDesc FROM " + gName));
 
 
             while (rs.next()) {
-                pointses.add(new Points(rs.getInt(1), rs.getInt(2), rs.getString(3)));
+                pointses.add(new Point(rs.getInt(1), rs.getInt(2), rs.getString(3)));
             }
             c.close();
         } catch (SQLException e) {

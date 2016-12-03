@@ -34,15 +34,12 @@ public class NotificationController implements Initializable
     @FXML
     private void handleNoButton(ActionEvent event) throws Exception
     {
-        Platform.runLater(new Runnable() {
-            public void run() {
-                try {
-                    new PointMain().start(new Stage());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        Stage stage = (Stage) noButton.getScene().getWindow();
+        stage.setTitle("Trackme Home");
+        Parent root = FXMLLoader.load(getClass().getResource("track.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @Override

@@ -26,9 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-/**
- * Created by Jorda on 10/12/2016.
- */
+/*This class is responsible for receiving input and creating timers*/
+
 public class InputController implements Initializable
 {
     @FXML private AnchorPane mainPane;
