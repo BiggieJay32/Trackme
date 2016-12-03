@@ -30,17 +30,17 @@ public class trackController implements Initializable
     @FXML private ProgressBar progressBar;
     @FXML private ProgressIndicator progressIndicator;
 
-    public TextField xIt, yIt,descIt;
-    public LineChart<Number, Number> lineChart;
-    public TableView<Point> tableTime;
-    public TableColumn<Point,String> xCol,yCol,descCol;
-    public Label lbl1;
-    public XYChart.Series<Number, Number> series;
-    public String currentName, currentX, currentY;
-    public NumberAxis xAxis, yAxis;
-    public ObservableList<Point> obs = FXCollections.observableArrayList();
-    public PointToTable pt;
-    public int goal, current;
+    @FXML private TextField xIt, yIt,descIt;
+    @FXML private LineChart<Number, Number> lineChart;
+    @FXML private TableView<Point> tableTime;
+    @FXML private TableColumn<Point,String> xCol,yCol,descCol;
+    private Label lbl1;
+    private XYChart.Series<Number, Number> series;
+    private String currentName, currentX, currentY;
+    @FXML private NumberAxis xAxis, yAxis;
+    private ObservableList<Point> obs = FXCollections.observableArrayList();
+    private PointToTable pt;
+    private int goal, current;
 
     public void btn1(ActionEvent e)
     {
@@ -130,6 +130,7 @@ public class trackController implements Initializable
                 Media sound = new Media(getClass().getResource("purpleCut.mp3").toString());
                 MediaPlayer mediaPlayer = new MediaPlayer(sound);
                 mediaPlayer.play();
+                stage.setOnCloseRequest(e -> mediaPlayer.stop());
 
             } catch(Exception e) {
                 e.printStackTrace();

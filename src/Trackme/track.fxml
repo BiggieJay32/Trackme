@@ -49,10 +49,10 @@
          <center>
             <LineChart fx:id="lineChart" prefHeight="414.0" prefWidth="481.0" BorderPane.alignment="CENTER">
                <xAxis>
-                  <NumberAxis fx:id = "xAxis" side="BOTTOM" />
+                  <NumberAxis side="BOTTOM" fx:id="xAxis" />
                </xAxis>
                <yAxis>
-                  <NumberAxis fx:id = "yAxis" prefHeight= "402.0" prefWidth="0.0" side="LEFT" />
+                  <NumberAxis fx:id="yAxis" prefHeight="402.0" prefWidth="0.0" side="LEFT" />
                </yAxis>
             </LineChart>
          </center>
@@ -80,12 +80,12 @@
          </top>
       </BorderPane>
       <ProgressBar fx:id="progressBar" layoutX="246.0" layoutY="502.0" prefHeight="25.0" prefWidth="291.0" progress="0.0" />
-      <Label layoutX="108.0" layoutY="501.0" text="Progress to Goal">
+      <Label layoutX="106.0" layoutY="501.0" prefHeight="27.0" prefWidth="134.0" text="Progress to Goal">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ProgressIndicator fx:id="progressIndicator" layoutX="537.0" layoutY="495.0" progress="0.0" />
+      <ProgressIndicator fx:id="progressIndicator" layoutX="547.0" layoutY="495.0" progress="0.0" />
    </children>
    <effect>
       <InnerShadow />

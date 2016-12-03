@@ -13,9 +13,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * Created by Jordan on 9/28/2016.
- */
+/*The class responsible providing the user with a reminder to update their class*/
 public class NotificationController implements Initializable
 {
     @FXML public Button yesButton, noButton;

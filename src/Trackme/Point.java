@@ -1,7 +1,8 @@
 package Trackme;
 
 
-/* This class provides an easy way for us to manage points within our graphs*/
+/* This class provides an easy way for us to manage points within our graphs.
+* Each point contains an x and y axis as well as a description.*/
 
 
 public class Point {
